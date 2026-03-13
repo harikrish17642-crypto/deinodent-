@@ -17,6 +17,10 @@ router.post('/', upload.single('photo'), async (req, res) => {
   try {
     const { visitId, type } = req.body;
 
+    if (!supabase) {
+      return res.status(500).json({ error: 'Storage service not configured' });
+    }
+
     if (!req.file) {
       return res.status(400).json({ error: 'No photo uploaded' });
     }
